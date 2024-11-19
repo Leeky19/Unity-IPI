@@ -6,11 +6,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f; // Force de saut
 
     private Rigidbody2D rb; // Référence au Rigidbody2D
+    private Animator animator; // Référence à l'Animator
     private bool isGrounded; // Vérifie si le joueur est au sol
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); // Récupère le Rigidbody2D attaché au player
+        animator = GetComponent<Animator>(); // Récupère l'Animator attaché au player
     }
 
     void Update()
@@ -27,6 +29,9 @@ public class PlayerController : MonoBehaviour
         float move = Input.GetAxis("Horizontal"); // Déplacement horizontal
         rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y); // Utilise linearVelocity
 
+        // Activer/désactiver l'animation de course
+        animator.SetBool("isMoving", Mathf.Abs(move) > 0);
+
         // Inverser le sprite selon la direction
         if (move > 0)
         {
@@ -38,10 +43,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void Jump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); // Applique la force de saut
+        animator.SetTrigger("Jump"); // Déclenche l'animation de saut
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
