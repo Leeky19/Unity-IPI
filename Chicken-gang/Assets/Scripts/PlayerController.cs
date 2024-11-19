@@ -27,10 +27,13 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         float move = Input.GetAxis("Horizontal"); // Déplacement horizontal
-        rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y); // Utilise linearVelocity
+        rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y); // Applique la vélocité horizontale
 
-        // Activer/désactiver l'animation de course
-        animator.SetBool("isMoving", Mathf.Abs(move) > 0);
+        // Détecte si le joueur se déplace ou est à l'arrêt
+        bool isCurrentlyMoving = Mathf.Abs(move) > 0;
+
+        // Mise à jour du paramètre "isMoving" dans l'Animator
+        animator.SetBool("isMoving", isCurrentlyMoving);
 
         // Inverser le sprite selon la direction
         if (move > 0)
