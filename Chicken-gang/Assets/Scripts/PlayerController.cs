@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f; // Vitesse de déplacement
+    public float speed = 5f; // Vitesse de dï¿½placement
     public float jumpForce = 10f; // Force de saut
 
-    private Rigidbody2D rb; // Référence au Rigidbody2D
-    private Animator animator; // Référence à l'Animator
-    private bool isGrounded; // Vérifie si le joueur est au sol
+    private Rigidbody2D rb; // RÃ©fÃ©rence au Rigidbody2D
+    private Animator animator; // RÃ©fÃ©rence Ã  l'Animator
+    private bool isGrounded; // VÃ©rifie si le joueur est au sol
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>(); // Récupère le Rigidbody2D attaché au player
-        animator = GetComponent<Animator>(); // Récupère l'Animator attaché au player
+        rb = GetComponent<Rigidbody2D>(); // RÃ©cupÃ¨re le Rigidbody2D attachï¿½ au player
+        animator = GetComponent<Animator>(); // RÃ©cupÃ¨re l'Animator attachÃ© au player
     }
 
     void Update()
     {
-        MovePlayer(); // Appelle la fonction de déplacement
+        MovePlayer(); // Appelle la fonction de dÃ©placement
         if (isGrounded && Input.GetButtonDown("Jump")) // Si au sol et appuie sur "Espace"
         {
             Jump();
@@ -26,14 +26,14 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        float move = Input.GetAxis("Horizontal"); // Déplacement horizontal
-        rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y); // Applique la vélocité horizontale
+        float move = Input.GetAxis("Horizontal"); // DÃ©placement horizontal
+        rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y); // Applique la vÃ©locitÃ© horizontale
 
-        // Détecte si le joueur se déplace ou est à l'arrêt
-        bool isCurrentlyMoving = Mathf.Abs(move) > 0;
-
-        // Mise à jour du paramètre "isMoving" dans l'Animator
-        animator.SetBool("isMoving", isCurrentlyMoving);
+        // EmpÃªche l'animation de se jouer si le joueur saute
+        if (isGrounded)
+        {
+            animator.SetBool("isMoving", Mathf.Abs(move) > 0); // Mise Ã  jour de l'animation de mouvement
+        }
 
         // Inverser le sprite selon la direction
         if (move > 0)
@@ -49,7 +49,10 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); // Applique la force de saut
-        animator.SetTrigger("Jump"); // Déclenche l'animation de saut
+
+        // Dï¿½sactiver les animations pendant le saut
+        animator.SetBool("isMoving", false); // ArrÃªte toute animation de mouvement
+        animator.SetTrigger("Jump"); // Si tu as une animation de saut, dÃ©clenche-la
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -57,6 +60,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground")) // Si le joueur touche le sol
         {
             isGrounded = true; // Le joueur est de nouveau au sol
+            animator.ResetTrigger("Jump"); // RÃ©initialise l'animation de saut si elle est prÃ©sente
+            animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0); // RÃ©active l'animation de mouvement en fonction de la vitesse
         }
     }
 
@@ -67,4 +72,5 @@ public class PlayerController : MonoBehaviour
             isGrounded = false; // Le joueur n'est plus au sol
         }
     }
+
 }
