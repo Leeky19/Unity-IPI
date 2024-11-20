@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
 
         // D�sactiver les animations pendant le saut
         animator.SetBool("isMoving", false); // Arrête toute animation de mouvement
-        animator.SetTrigger("Jump"); // Si tu as une animation de saut, déclenche-la
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -60,7 +59,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground")) // Si le joueur touche le sol
         {
             isGrounded = true; // Le joueur est de nouveau au sol
-            animator.ResetTrigger("Jump"); // Réinitialise l'animation de saut si elle est présente
             animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0); // Réactive l'animation de mouvement en fonction de la vitesse
         }
     }
