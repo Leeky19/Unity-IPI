@@ -8,6 +8,12 @@ TagManager:
   - Wall
   - Celling
   - Background
+  - Boxe
+  - Spikes
+  - Start
+  - End
+  - Checkpoint
+  - DeathZone
   layers:
   - Default
   - TransparentFX
@@ -18,8 +24,8 @@ TagManager:
   - Wall
   - Celling
   - Background
-  - 
-  - 
+  - Boxe
+  - Spikes
   - 
   - 
   - 
@@ -44,6 +50,18 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3205403205
+    locked: 0
+  - name: Foreground
+    uniqueID: 1764995463
+    locked: 0
+  - name: Player
+    uniqueID: 2091218553
+    locked: 0
+  - name: Ground
+    uniqueID: 3909802181
     locked: 0
   m_RenderingLayers:
   - Default
