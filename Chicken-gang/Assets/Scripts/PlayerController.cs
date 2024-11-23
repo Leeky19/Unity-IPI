@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f; // Vitesse de d�placement
+    public float speed = 5f; // Vitesse de déplacement
     public float jumpForce = 10f; // Force de saut
 
     private Rigidbody2D rb; // Référence au Rigidbody2D
     private Animator animator; // Référence à l'Animator
     private bool isGrounded; // Vérifie si le joueur est au sol
+    private Vector3 startPosition; // Position initiale du joueur
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>(); // Récupère le Rigidbody2D attach� au player
+        rb = GetComponent<Rigidbody2D>(); // Récupère le Rigidbody2D attaché au player
         animator = GetComponent<Animator>(); // Récupère l'Animator attaché au player
+        startPosition = transform.position; // Enregistre la position de départ
     }
 
     void Update()
@@ -50,25 +52,42 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); // Applique la force de saut
 
-        // D�sactiver les animations pendant le saut
+        // Désactiver les animations pendant le saut
         animator.SetBool("isMoving", false); // Arrête toute animation de mouvement
+        animator.SetTrigger("Jump"); // Si tu as une animation de saut, déclenche-la
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground")) // Si le joueur touche le sol
+        // Permet au joueur de détecter le sol ou la boxe pour être considéré au sol
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Boxe"))
         {
-            isGrounded = true; // Le joueur est de nouveau au sol
-            animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0); // Réactive l'animation de mouvement en fonction de la vitesse
+            isGrounded = true; // Le joueur est au sol
+            animator.ResetTrigger("Jump"); // Réinitialise l'animation de saut
+            animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0); // Réactive l'animation de mouvement
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground")) // Quand le joueur quitte le sol
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Boxe"))
         {
-            isGrounded = false; // Le joueur n'est plus au sol
+            isGrounded = false; // Le joueur quitte le sol
         }
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Trap")) // Vérifie si le joueur touche un piège
+        {
+            RespawnPlayer(); // Ramène le joueur à la position de départ
+        }
+    }
+
+    private void RespawnPlayer()
+    {
+        transform.position = startPosition; // Replace le joueur à la position initiale
+        rb.linearVelocity = Vector2.zero; // Réinitialise la vitesse du joueur
+    }
 }
