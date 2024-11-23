@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Permet au joueur de détecter le sol ou la boxe pour être considéré au sol
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Boxe"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
         {
             isGrounded = true; // Le joueur est au sol
             animator.ResetTrigger("Jump"); // Réinitialise l'animation de saut
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Boxe"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
         {
             isGrounded = false; // Le joueur quitte le sol
         }
