@@ -8,25 +8,28 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb; // Référence au Rigidbody2D
     private Animator animator; // Référence à l'Animator
     private bool isGrounded; // Vérifie si le joueur est au sol
-    private Vector3 startPosition; // Position initiale du joueur
+    private Vector3 startPosition; // Position initiale du joueur (GameObject Start)
+    private Vector3 checkpointPosition; // Position du checkpoint
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); // Récupère le Rigidbody2D attaché au player
         animator = GetComponent<Animator>(); // Récupère l'Animator attaché au player
 
-        // Recherche du GameObject avec le tag "Start"
-        GameObject startPoint = GameObject.FindGameObjectWithTag("Start");
-        if (startPoint != null)
+        // Recherche le GameObject avec le tag "Start" et prend sa position comme position initiale
+        GameObject startObject = GameObject.FindWithTag("Start");
+        if (startObject != null)
         {
-            transform.position = startPoint.transform.position; // Définit la position initiale du joueur
+            startPosition = startObject.transform.position; // Enregistre la position du Start
         }
         else
         {
-            Debug.LogWarning("Aucun GameObject avec le tag 'Start' trouvé. La position actuelle sera utilisée comme départ.");
+            Debug.LogError("Aucun GameObject avec le tag 'Start' trouvé !");
+            startPosition = transform.position; // En cas d'absence de Start, utilise la position actuelle comme fallback
         }
 
-        startPosition = transform.position; // Enregistre la position initiale
+        checkpointPosition = startPosition; // Au départ, le checkpoint est la position de départ
+        transform.position = startPosition; // Force le joueur à se positionner au GameObject Start dès le début
     }
 
     void Update()
@@ -63,7 +66,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); // Applique la force de saut
 
         animator.SetBool("isMoving", false); // Arrête toute animation de mouvement
-        animator.SetTrigger("Jump"); // Si animation de saut, déclenche
+        animator.SetTrigger("Jump"); // Si tu as une animation de saut, déclenche-la
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -90,11 +93,18 @@ public class PlayerController : MonoBehaviour
         {
             RespawnPlayer();
         }
+
+        if (collision.CompareTag("Checkpoint")) // Si le joueur touche un checkpoint
+        {
+            checkpointPosition = collision.transform.position; // Met à jour la position du checkpoint
+            Debug.Log("Checkpoint atteint !");
+        }
     }
 
     private void RespawnPlayer()
     {
-        transform.position = startPosition;
+        // Utilise la position du checkpoint pour le respawn
+        transform.position = checkpointPosition;
         rb.linearVelocity = Vector2.zero;
     }
 }
