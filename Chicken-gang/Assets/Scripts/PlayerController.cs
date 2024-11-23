@@ -14,7 +14,19 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>(); // Récupère le Rigidbody2D attaché au player
         animator = GetComponent<Animator>(); // Récupère l'Animator attaché au player
-        startPosition = transform.position; // Enregistre la position de départ
+
+        // Recherche du GameObject avec le tag "Start"
+        GameObject startPoint = GameObject.FindGameObjectWithTag("Start");
+        if (startPoint != null)
+        {
+            transform.position = startPoint.transform.position; // Définit la position initiale du joueur
+        }
+        else
+        {
+            Debug.LogWarning("Aucun GameObject avec le tag 'Start' trouvé. La position actuelle sera utilisée comme départ.");
+        }
+
+        startPosition = transform.position; // Enregistre la position initiale
     }
 
     void Update()
@@ -31,13 +43,11 @@ public class PlayerController : MonoBehaviour
         float move = Input.GetAxis("Horizontal"); // Déplacement horizontal
         rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y); // Applique la vélocité horizontale
 
-        // Empêche l'animation de se jouer si le joueur saute
         if (isGrounded)
         {
             animator.SetBool("isMoving", Mathf.Abs(move) > 0); // Mise à jour de l'animation de mouvement
         }
 
-        // Inverser le sprite selon la direction
         if (move > 0)
         {
             transform.localScale = new Vector3(-3, 3, 3); // Orientation vers la droite
@@ -52,19 +62,17 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); // Applique la force de saut
 
-        // Désactiver les animations pendant le saut
         animator.SetBool("isMoving", false); // Arrête toute animation de mouvement
-        animator.SetTrigger("Jump"); // Si tu as une animation de saut, déclenche-la
+        animator.SetTrigger("Jump"); // Si animation de saut, déclenche
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Permet au joueur de détecter le sol ou la boxe pour être considéré au sol
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
         {
-            isGrounded = true; // Le joueur est au sol
-            animator.ResetTrigger("Jump"); // Réinitialise l'animation de saut
-            animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0); // Réactive l'animation de mouvement
+            isGrounded = true;
+            animator.ResetTrigger("Jump");
+            animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0);
         }
     }
 
@@ -72,22 +80,21 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
         {
-            isGrounded = false; // Le joueur quitte le sol
+            isGrounded = false;
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Trap")) // Vérifie si le joueur touche un piège
+        if (collision.CompareTag("Trap"))
         {
-            RespawnPlayer(); // Ramène le joueur à la position de départ
+            RespawnPlayer();
         }
     }
 
     private void RespawnPlayer()
     {
-        transform.position = startPosition; // Replace le joueur à la position initiale
-        rb.linearVelocity = Vector2.zero; // Réinitialise la vitesse du joueur
+        transform.position = startPosition;
+        rb.linearVelocity = Vector2.zero;
     }
 }
