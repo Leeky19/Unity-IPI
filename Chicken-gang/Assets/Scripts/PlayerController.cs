@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
     private void RespawnPlayer()
     {
         // Utilise la position du checkpoint pour le respawn
-        transform.position = checkpointPosition;
+        transform.position = checkpointPosition; //Si plusieurs checkpoint, dernier à être sauvegarder
         rb.linearVelocity = Vector2.zero;
     }
 }

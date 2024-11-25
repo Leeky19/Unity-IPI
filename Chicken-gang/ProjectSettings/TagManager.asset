@@ -8,12 +8,13 @@ TagManager:
   - Wall
   - Celling
   - Background
-  - Boxe
+  - Box
   - Spikes
   - Start
   - End
   - Checkpoint
   - DeathZone
+  - Trap
   layers:
   - Default
   - TransparentFX
