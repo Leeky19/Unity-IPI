@@ -1,22 +1,30 @@
 using UnityEngine;
 
-public class Trampoline : MonoBehaviour
+public class CheckpointController : MonoBehaviour
 {
-    public float bounceForce = 15f; // Force du rebond
+    private Animator checkpointAnimator; // Référence à l'Animator du checkpoint
+    private bool isActivated = false;   // Indique si le checkpoint a déjà été activé
+
+    void Start()
+    {
+        // Récupère l'Animator attaché au checkpoint
+        checkpointAnimator = GetComponent<Animator>();
+        if (checkpointAnimator == null)
+        {
+            Debug.LogError("Aucun Animator trouvé sur le Checkpoint !");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) // V�rifie si c'est le joueur qui entre en contact
+        if (collision.CompareTag("Player") && !isActivated) // Vérifie que c'est le joueur et que le checkpoint n'est pas encore activé
         {
-            Rigidbody2D playerRb = collision.GetComponent<Rigidbody2D>();
-            if (playerRb != null)
+            isActivated = true; // Empêche de réactiver le checkpoint
+            if (checkpointAnimator != null)
             {
-                // Applique une v�locit� verticale pour simuler le rebond
-                playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, bounceForce);
-
-                // Ajoute des effets visuels ou sonores ici si n�cessaire
-                Debug.Log("Le joueur a utilis� le trampoline !");
+                checkpointAnimator.SetTrigger("appear"); // Déclenche l'animation du checkpoint
             }
+            Debug.Log("Checkpoint activé !");
         }
     }
 }
