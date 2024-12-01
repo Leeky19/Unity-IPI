@@ -2,47 +2,64 @@ using UnityEngine;
 
 public class RockHeadController : MonoBehaviour
 {
-    public float fallSpeed = 5f; // Vitesse de chute
-    public float riseSpeed = 2f; // Vitesse de remont�e
+    private Rigidbody2D rb;
     private Vector3 initialPosition; // Position initiale du Rock_Head
-    private bool isFalling = true; // Permet de g�rer l'�tat de chute et de remont�e
-    private Rigidbody2D rb; // R�f�rence au Rigidbody2D
+    private bool isFalling = true; // Contrôleur de chute
+    private bool isRising = false; // Contrôleur de montée
+    public float fallSpeed = 5f; // Vitesse de la chute
+    public float riseSpeed = 3f; // Vitesse de la montée
+
+    [Header("Colliders")]
+    [SerializeField] private BoxCollider2D mainCollider; // Référence au collider principal
+    [SerializeField] private BoxCollider2D triggerCollider; // Référence au collider avec "Is Trigger"
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>(); // R�cup�re le Rigidbody2D attach� au GameObject
+        rb = GetComponent<Rigidbody2D>(); // Récupère le Rigidbody2D attaché à Rock_Head
+        if (mainCollider == null || triggerCollider == null)
+        {
+            Debug.LogError("Veuillez assigner les colliders dans l'inspecteur !");
+        }
+
         initialPosition = transform.position; // Enregistre la position initiale
+        triggerCollider.enabled = false; // Désactive le collider trigger au départ
     }
 
     void Update()
     {
         if (isFalling)
         {
-            // Applique la force pour la chute
-            rb.linearVelocity = new Vector2(0, -fallSpeed); // Vitesse de chute vers le bas
+            // Mouvement de chute
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -fallSpeed); // Applique une vitesse verticale négative (chute)
+            triggerCollider.enabled = true; // Active le collider trigger pendant la chute
         }
-        else
+        else if (isRising)
         {
-            // Remonte � la position initiale apr�s avoir touch� le sol
-            float distanceToMove = Vector3.Distance(transform.position, initialPosition);
-            if (distanceToMove > 0.1f) // Si le Rock_Head n'est pas d�j� � sa position initiale
+            // Mouvement de montée
+            if (transform.position.y < initialPosition.y) // Vérifie si le Rock_Head n'a pas atteint sa position initiale
             {
-                transform.position = Vector3.MoveTowards(transform.position, initialPosition, riseSpeed * Time.deltaTime); // Remont�e � la position initiale
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, riseSpeed); // Applique une vitesse verticale positive (montée)
             }
             else
             {
-                // Une fois que le Rock_Head est de retour � sa position initiale, il recommence � tomber
-                isFalling = true;
+                rb.linearVelocity = Vector2.zero; // Arrête le mouvement une fois que la position initiale est atteinte
+                transform.position = initialPosition; // Réinitialise la position exactement à celle de départ
+                isFalling = true; // Le Rock_Head peut recommencer à tomber après avoir atteint la position initiale
+                isRising = false; // Arrête le mouvement de montée
             }
+            triggerCollider.enabled = false; // Désactive le collider trigger pendant la montée
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Lorsque le Rock_Head touche le sol, il arr�te de tomber et commence � remonter
-        if (collision.gameObject.CompareTag("Ground")) // Assure-toi que ton sol a le tag "Ground"
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            isFalling = false; // Arr�te la chute
+            // Lorsque le Rock_Head touche le sol
+            Debug.Log("Rock_Head a touché le sol!");
+
+            isFalling = false; // Le Rock_Head doit commencer à monter
+            isRising = true; // Commence la remontée du Rock_Head
         }
     }
 }
