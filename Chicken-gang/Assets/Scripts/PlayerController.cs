@@ -99,6 +99,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
     private void RespawnPlayer()
     {
         // Utilise la position du checkpoint pour le respawn
