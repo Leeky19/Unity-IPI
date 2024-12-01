@@ -66,7 +66,6 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); // Applique la force de saut
 
         animator.SetBool("isMoving", false); // Arrête toute animation de mouvement
-        animator.SetTrigger("Jump"); // Si tu as une animation de saut, déclenche-la
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -74,7 +73,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
         {
             isGrounded = true;
-            animator.ResetTrigger("Jump");
             animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0);
         }
     }
