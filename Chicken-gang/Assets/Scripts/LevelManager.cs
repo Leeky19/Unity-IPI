@@ -31,7 +31,11 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Tous les niveaux terminés !");
+            int nextSceneIndex = 0;
+            PlayerPrefs.SetInt(LevelKey, nextSceneIndex); // Sauvegarde le prochain niveau
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene(nextSceneIndex);
             // Optionnel : revenir au menu principal ou une autre scène
             // SceneManager.LoadScene("MainMenu");
         }
