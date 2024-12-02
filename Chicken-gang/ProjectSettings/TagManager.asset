@@ -17,6 +17,8 @@ TagManager:
   - Trap
   - Boxe
   - Trampoline
+  - Fruit
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -29,8 +31,8 @@ TagManager:
   - Background
   - Boxe
   - Spikes
-  - 
-  - 
+  - Fruit
+  - Door
   - 
   - 
   - 

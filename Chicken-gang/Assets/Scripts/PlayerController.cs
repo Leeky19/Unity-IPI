@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded; // Vérifie si le joueur est au sol
     private Vector3 startPosition; // Position initiale du joueur (GameObject Start)
     private Vector3 checkpointPosition; // Position du checkpoint
+    public int fruitCount = 0; // Compteur de fruits collectés
 
     void Start()
     {
@@ -99,12 +100,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
     private void RespawnPlayer()
     {
         // Utilise la position du checkpoint pour le respawn
         transform.position = checkpointPosition; //Si plusieurs checkpoint, dernier à être sauvegarder
         rb.linearVelocity = Vector2.zero;
+    }
+
+    public void CollectFruit()
+    {
+        fruitCount++; // Incrémente le compteur
+        Debug.Log("Fruits collectés : " + fruitCount);
     }
 }
