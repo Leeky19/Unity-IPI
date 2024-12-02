@@ -938,6 +938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   riseSpeed: 0.5
+  groundPauseTime: 10
   mainCollider: {fileID: 328759050}
   triggerCollider: {fileID: 328759049}
 --- !u!50 &328759053
