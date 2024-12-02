@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3561518837547589136}
   - component: {fileID: 2337106035349202036}
-  - component: {fileID: 2749768683130285191}
+  - component: {fileID: 2067857823708966785}
   - component: {fileID: 4342282474823236511}
   - component: {fileID: 7302700665211073256}
   - component: {fileID: 6995414620014742006}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,10 +61,10 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &2749768683130285191
-BoxCollider2D:
+--- !u!60 &2067857823708966785
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -73,7 +73,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 26f03fbd3c218c94a9116bf4038676cb, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -97,7 +97,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0050124526, y: -0.0049995035}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -107,8 +107,22 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.2906351, y: 0.33103868}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.058925826, y: 0.043868877}
+      - {x: -0.018521238, y: 0.16526599}
+      - {x: -0.099468075, y: 0.1586384}
+      - {x: -0.10822348, y: 0.08591516}
+      - {x: -0.14958523, y: 0.06905316}
+      - {x: -0.1486384, y: -0.023372438}
+      - {x: -0.06482358, y: -0.11070213}
+      - {x: -0.045500286, y: -0.17189361}
+      - {x: 0.079053156, y: -0.17}
+      - {x: 0.07916725, y: -0.10911251}
+      - {x: 0.1448512, y: -0.07905324}
+      - {x: 0.14769156, y: 0.02094684}
+      - {x: 0.13337228, y: 0.042127922}
+  m_UseDelaunayMesh: 0
 --- !u!212 &4342282474823236511
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -211,7 +225,7 @@ GameObject:
   - component: {fileID: 4806113008359844406}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
