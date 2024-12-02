@@ -130,11 +130,7 @@ GameObject:
   - component: {fileID: 74493504}
   - component: {fileID: 74493505}
   m_Layer: 3
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_Name: Ground10
-=======
   m_Name: Ground1 (5)
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,11 +304,7 @@ GameObject:
   - component: {fileID: 203935074}
   - component: {fileID: 203935075}
   m_Layer: 3
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_Name: Ground7
-=======
   m_Name: Ground1 (6)
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,10 +496,6 @@ Transform:
   m_LocalPosition: {x: -4.91, y: -4.01, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_Children: []
-  m_Father: {fileID: 924610316}
-=======
   m_Children:
   - {fileID: 1969526833}
   - {fileID: 1920958294}
@@ -518,7 +506,6 @@ Transform:
   - {fileID: 138458858}
   - {fileID: 1084644369}
   m_Father: {fileID: 2105150574}
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &377343655
 SpriteRenderer:
@@ -760,11 +747,7 @@ GameObject:
   - component: {fileID: 630069458}
   - component: {fileID: 630069459}
   m_Layer: 3
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_Name: Ground4
-=======
   m_Name: Ground1 (1)
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1014,8 +997,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-=======
 --- !u!1 &678696311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,7 +1084,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
 --- !u!1 &697320538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,19 +1812,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  - {fileID: 1174185320}
-  - {fileID: 1044774976}
-  - {fileID: 377343654}
-  - {fileID: 630069458}
-  - {fileID: 1417001043}
-  - {fileID: 1522835694}
-  - {fileID: 203935074}
-  - {fileID: 1496976904}
-  - {fileID: 2068620693}
-  - {fileID: 74493504}
-  m_Father: {fileID: 2105150574}
-=======
   - {fileID: 1463458043}
   - {fileID: 2085732967}
   - {fileID: 678696312}
@@ -1856,7 +1823,6 @@ Transform:
   - {fileID: 2068620693}
   - {fileID: 74493504}
   m_Father: {fileID: 319467532}
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &924610317
 BoxCollider2D:
@@ -1892,11 +1858,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_Offset: {x: -0.08156443, y: -4.006047}
-=======
   m_Offset: {x: -0.48578262, y: -4.0223675}
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1906,11 +1868,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_Size: {x: 16.404388, y: 1.9247828}
-=======
   m_Size: {x: 17.64198, y: 1.9012961}
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_EdgeRadius: 0
 --- !u!1 &925490937
 GameObject:
@@ -3767,10 +3725,6 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_SortingLayerID: -385165115
-  m_SortingLayer: 4
-=======
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -3860,7 +3814,6 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_SortingOrder: 0
   m_Sprite: {fileID: -1487247821, guid: 413986c4a668c374d8de72a47621b531, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3884,11 +3837,7 @@ GameObject:
   - component: {fileID: 1496976904}
   - component: {fileID: 1496976905}
   m_Layer: 3
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_Name: Ground8
-=======
   m_Name: Ground1 (7)
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3975,11 +3924,7 @@ GameObject:
   - component: {fileID: 1522835694}
   - component: {fileID: 1522835695}
   m_Layer: 3
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_Name: Ground6
-=======
   m_Name: Ground1 (2)
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5433,11 +5378,7 @@ GameObject:
   - component: {fileID: 2068620693}
   - component: {fileID: 2068620694}
   m_Layer: 3
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_Name: Ground9
-=======
   m_Name: Ground1 (4)
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5499,10 +5440,6 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-<<<<<<< HEAD:Chicken-gang/Assets/Scenes/lvl1.unity
-  m_SortingLayerID: -385165115
-  m_SortingLayer: 4
-=======
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -5592,7 +5529,6 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
->>>>>>> e83af74d67b1654dd1b3457c0965d819622ba9a1:Chicken-gang/Assets/Scenes/maps.unity
   m_SortingOrder: 0
   m_Sprite: {fileID: -1487247821, guid: 413986c4a668c374d8de72a47621b531, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
