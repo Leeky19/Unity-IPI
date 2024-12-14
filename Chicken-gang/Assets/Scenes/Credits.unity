@@ -295,7 +295,7 @@ MonoBehaviour:
     Sp\xE9ciaux :\n\xC0 nos familles et amis pour leur soutien.\nAux d\xE9veloppeurs
     ind\xE9pendants et communaut\xE9s qui nous ont inspir\xE9s.\n\xC0 vous, les joueurs,
     pour votre enthousiasme et votre soutien !\n\n\nD\xE9dicace :\nCe jeu est d\xE9di\xE9
-    \xE0 tous ceux qui ont r\xEAv\xE9, cr\xE9\xE9 et cru en la magie des jeux vid\xE9o.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                           
+    \xE0 tous ceux qui ont r\xEAv\xE9, cr\xE9\xE9 et cru en la magie des jeux vid\xE9o\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                           
     Merci d\u2019avoir jou\xE9 !"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -111.578064, w: 0}
+  m_margin: {x: 0, y: 0, z: -45.64496, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
