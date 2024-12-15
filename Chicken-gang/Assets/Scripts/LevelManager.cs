@@ -7,24 +7,28 @@ public class LevelManager : MonoBehaviour
 
    void Start()
 {
-    int savedLevelIndex = PlayerPrefs.GetInt(LevelKey, 0);
+    int savedLevelIndex = PlayerPrefs.GetInt(LevelKey, 1);
     Debug.Log("Niveau sauvegardé : " + savedLevelIndex);
     Debug.Log("Niveau actif : " + SceneManager.GetActiveScene().buildIndex);
 
-    if (SceneManager.GetActiveScene().name != "MenuPrincipal")
+    // Si on est dans le menu principal, ne rien faire
+    if (SceneManager.GetActiveScene().name == "MenuPrincipal")
     {
-        if (SceneManager.GetActiveScene().buildIndex != savedLevelIndex)
-        {
-            Debug.Log("Chargement du niveau sauvegardé : " + savedLevelIndex);
-            SceneManager.LoadScene(savedLevelIndex);
-        }
+        return;
+    }
+
+    // Ne recharger le niveau sauvegardé que si on est dans une scène de jeu
+    if (SceneManager.GetActiveScene().buildIndex != savedLevelIndex)
+    {
+        Debug.Log("Chargement du niveau sauvegardé : " + savedLevelIndex);
+        SceneManager.LoadScene(savedLevelIndex);
     }
 }
 
 
-    public void LoadNextLevel()
+
+   public void LoadNextLevel()
 {
-    // Récupère l'index de la scène actuelle
     int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
     // Passe à la scène suivante (si elle existe)
@@ -32,8 +36,9 @@ public class LevelManager : MonoBehaviour
     {
         int nextSceneIndex = currentSceneIndex + 1;
 
-        // Sauvegarde le prochain niveau uniquement si ce n'est pas le menu principal
-        if (SceneManager.GetSceneByBuildIndex(nextSceneIndex).name != "MenuPrincipal")
+        // Ne sauvegarder que si ce n'est pas le menu principal ou les crédits
+        string nextSceneName = SceneManager.GetSceneByBuildIndex(nextSceneIndex).name;
+        if (nextSceneName != "MenuPrincipal" && nextSceneName != "Credits")
         {
             PlayerPrefs.SetInt(LevelKey, nextSceneIndex);
             PlayerPrefs.Save();
@@ -49,6 +54,7 @@ public class LevelManager : MonoBehaviour
 }
 
 
+
     public void RestartLevel()
     {
         // Recharge la sc�ne actuelle
@@ -62,4 +68,11 @@ public class LevelManager : MonoBehaviour
         PlayerPrefs.Save();
         SceneManager.LoadScene(1); // Repart du premier niveau
     }
+
+    public void RetourMenuPrincipal()
+{
+    PlayerPrefs.DeleteKey("CurrentLevel");
+    SceneManager.LoadScene("MenuPrincipal");
+}
+
 }
