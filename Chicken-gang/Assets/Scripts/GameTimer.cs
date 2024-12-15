@@ -3,13 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class GameTimer : MonoBehaviour
 {
-    public static GameTimer Instance; // Singleton pour accéder au timer globalement
+    public static GameTimer Instance; // Singleton
     private float timer = 0f;
     private bool isTiming = false;
+    private const string BestTimeKey = "BestTime"; // Clé pour sauvegarder le meilleur temps
 
     void Awake()
     {
-        // Créer un singleton pour persister entre les scènes
         if (Instance == null)
         {
             Instance = this;
@@ -23,21 +23,21 @@ public class GameTimer : MonoBehaviour
 
     void Update()
     {
-        // Incrémente le timer si activé
         if (isTiming)
         {
             timer += Time.deltaTime;
         }
 
-        // Arrête le chrono lorsque la scène "Credits" est atteinte
+        // Arrêter le chrono dans la scène "Credits"
         if (SceneManager.GetActiveScene().name == "Credits" && isTiming)
         {
             isTiming = false;
+            SaveBestTime(timer);
             Debug.Log("Temps total : " + timer + " secondes");
         }
     }
 
-    // Méthode pour démarrer le chrono
+    // Démarrer le chrono
     public void StartTimer()
     {
         timer = 0f;
@@ -45,9 +45,32 @@ public class GameTimer : MonoBehaviour
         Debug.Log("Chrono démarré !");
     }
 
-    // Méthode pour récupérer le temps écoulé
+    // Récupérer le temps total
     public float GetTime()
     {
         return timer;
+    }
+
+    // Sauvegarder le meilleur temps si c'est le nouveau record
+    private void SaveBestTime(float currentTime)
+{
+    float bestTime = PlayerPrefs.GetFloat(BestTimeKey, float.MaxValue);
+    if (currentTime < bestTime)
+    {
+        Debug.Log("Nouveau record ! Ancien meilleur temps : " + bestTime);
+        PlayerPrefs.SetFloat(BestTimeKey, currentTime);
+        PlayerPrefs.Save();
+    }
+    else
+    {
+        Debug.Log("Pas de nouveau record. Meilleur temps actuel : " + bestTime);
+    }
+}
+
+
+    // Récupérer le meilleur temps
+    public float GetBestTime()
+    {
+        return PlayerPrefs.GetFloat(BestTimeKey, float.MaxValue); // Valeur par défaut = max possible
     }
 }
