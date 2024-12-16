@@ -3,55 +3,76 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private const string LevelKey = "CurrentLevel"; // Clé pour sauvegarder le niveau dans PlayerPrefs
+    private const string LevelKey = "CurrentLevel"; // Clï¿½ pour sauvegarder le niveau dans PlayerPrefs
 
-    void Start()
+   void Start()
+{
+    int savedLevelIndex = PlayerPrefs.GetInt(LevelKey, 1);
+    Debug.Log("Niveau sauvegardÃ© : " + savedLevelIndex);
+    Debug.Log("Niveau actif : " + SceneManager.GetActiveScene().buildIndex);
+
+    // Si on est dans le menu principal, ne rien faire
+    if (SceneManager.GetActiveScene().name == "MenuPrincipal")
     {
-        // Charger le niveau sauvegardé au début du jeu
-        int savedLevelIndex = PlayerPrefs.GetInt(LevelKey, 0); // Par défaut, commence au niveau 0
-        if (SceneManager.GetActiveScene().buildIndex != savedLevelIndex)
-        {
-            SceneManager.LoadScene(savedLevelIndex);
-        }
+        return;
     }
 
-    public void LoadNextLevel()
+    // Ne recharger le niveau sauvegardÃ© que si on est dans une scÃ¨ne de jeu
+    if (SceneManager.GetActiveScene().buildIndex != savedLevelIndex)
     {
-        // Récupère l'index de la scène actuelle
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // Passe à la scène suivante (si elle existe)
-        if (currentSceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
-        {
-            int nextSceneIndex = currentSceneIndex + 1;
-            PlayerPrefs.SetInt(LevelKey, nextSceneIndex); // Sauvegarde le prochain niveau
-            PlayerPrefs.Save();
-
-            SceneManager.LoadScene(nextSceneIndex);
-        }
-        else
-        {
-            int nextSceneIndex = 0;
-            PlayerPrefs.SetInt(LevelKey, nextSceneIndex); // Sauvegarde le prochain niveau
-            PlayerPrefs.Save();
-
-            SceneManager.LoadScene(nextSceneIndex);
-            // Optionnel : revenir au menu principal ou une autre scène
-            // SceneManager.LoadScene("MainMenu");
-        }
+        Debug.Log("Chargement du niveau sauvegardÃ© : " + savedLevelIndex);
+        SceneManager.LoadScene(savedLevelIndex);
     }
+}
+
+
+
+   public void LoadNextLevel()
+{
+    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+    // Passe Ã  la scÃ¨ne suivante (si elle existe)
+    if (currentSceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
+    {
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        // Ne sauvegarder que si ce n'est pas le menu principal ou les crÃ©dits
+        string nextSceneName = SceneManager.GetSceneByBuildIndex(nextSceneIndex).name;
+        if (nextSceneName != "MenuPrincipal" && nextSceneName != "Credits")
+        {
+            PlayerPrefs.SetInt(LevelKey, nextSceneIndex);
+            PlayerPrefs.Save();
+        }
+
+        SceneManager.LoadScene(nextSceneIndex);
+    }
+    else
+    {
+        // Si aucun niveau suivant n'existe, revenir au menu principal
+        SceneManager.LoadScene("MenuPrincipal");
+    }
+}
+
+
 
     public void RestartLevel()
     {
-        // Recharge la scène actuelle
+        // Recharge la scï¿½ne actuelle
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ResetProgress()
     {
-        // Réinitialise la progression du joueur
+        // Rï¿½initialise la progression du joueur
         PlayerPrefs.DeleteKey(LevelKey);
         PlayerPrefs.Save();
-        SceneManager.LoadScene(0); // Repart du premier niveau
+        SceneManager.LoadScene(1); // Repart du premier niveau
     }
+
+    public void RetourMenuPrincipal()
+{
+    PlayerPrefs.DeleteKey("CurrentLevel");
+    SceneManager.LoadScene("MenuPrincipal");
+}
+
 }
