@@ -8,35 +8,40 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb; // Référence au Rigidbody2D
     private Animator animator; // Référence à l'Animator
     private bool isGrounded; // Vérifie si le joueur est au sol
-    private Vector3 startPosition; // Position initiale du joueur (GameObject Start)
+    private Vector3 startPosition; // Position initiale
     private Vector3 checkpointPosition; // Position du checkpoint
     public int fruitCount = 0; // Compteur de fruits collectés
 
+    private float moveInput = 0f; // Contrôle du mouvement horizontal
+
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>(); // Récupère le Rigidbody2D attaché au player
-        animator = GetComponent<Animator>(); // Récupère l'Animator attaché au player
+        rb = GetComponent<Rigidbody2D>(); // Récupère le Rigidbody2D attaché
+        animator = GetComponent<Animator>(); // Récupère l'Animator attaché
 
-        // Recherche le GameObject avec le tag "Start" et prend sa position comme position initiale
+        // Recherche le GameObject avec le tag "Start"
         GameObject startObject = GameObject.FindWithTag("Start");
         if (startObject != null)
         {
-            startPosition = startObject.transform.position; // Enregistre la position du Start
+            startPosition = startObject.transform.position;
         }
         else
         {
             Debug.LogError("Aucun GameObject avec le tag 'Start' trouvé !");
-            startPosition = transform.position; // En cas d'absence de Start, utilise la position actuelle comme fallback
+            startPosition = transform.position;
         }
 
-        checkpointPosition = startPosition; // Au départ, le checkpoint est la position de départ
-        transform.position = startPosition; // Force le joueur à se positionner au GameObject Start dès le début
+        checkpointPosition = startPosition; // Au départ, le checkpoint est la position initiale
+        transform.position = startPosition; // Positionne le joueur au début
     }
 
     void Update()
     {
-        MovePlayer(); // Appelle la fonction de déplacement
-        if (isGrounded && Input.GetButtonDown("Jump")) // Si au sol et appuie sur "Espace"
+        // Appelle la fonction de déplacement
+        MovePlayer();
+
+        // Saut via le bouton ou la touche espace
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
             Jump();
         }
@@ -44,29 +49,50 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        float move = Input.GetAxis("Horizontal"); // Déplacement horizontal
-        rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y); // Applique la vélocité horizontale
+        // Applique la vélocité horizontale
+        rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
 
         if (isGrounded)
         {
-            animator.SetBool("isMoving", Mathf.Abs(move) > 0); // Mise à jour de l'animation de mouvement
+            animator.SetBool("isMoving", Mathf.Abs(moveInput) > 0);
         }
 
-        if (move > 0)
+        // Orientation du joueur
+        if (moveInput > 0)
         {
-            transform.localScale = new Vector3(-3, 3, 3); // Orientation vers la droite
+            transform.localScale = new Vector3(-3, 3, 3); // Vers la droite
         }
-        else if (move < 0)
+        else if (moveInput < 0)
         {
-            transform.localScale = new Vector3(3, 3, 3); // Orientation vers la gauche
+            transform.localScale = new Vector3(3, 3, 3); // Vers la gauche
         }
     }
 
-    private void Jump()
+    public void Jump()
     {
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); // Applique la force de saut
+        if (isGrounded)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            animator.SetBool("isMoving", false);
+        }
+    }
 
-        animator.SetBool("isMoving", false); // Arrête toute animation de mouvement
+    // Appelé par les boutons pour déplacer vers la gauche
+    public void MoveLeft()
+    {
+        moveInput = -1f;
+    }
+
+    // Appelé par les boutons pour déplacer vers la droite
+    public void MoveRight()
+    {
+        moveInput = 1f;
+    }
+
+    // Appelé pour arrêter le mouvement lorsque le bouton est relâché
+    public void StopMoving()
+    {
+        moveInput = 0f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -74,7 +100,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Box"))
         {
             isGrounded = true;
-            animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0);
         }
     }
 
@@ -93,19 +118,19 @@ public class PlayerController : MonoBehaviour
             RespawnPlayer();
         }
 
-        if (collision.CompareTag("Checkpoint")) // Si le joueur touche un checkpoint
+        if (collision.CompareTag("Checkpoint"))
         {
-            checkpointPosition = collision.transform.position; // Met à jour la position du checkpoint
+            checkpointPosition = collision.transform.position;
             Debug.Log("Checkpoint atteint !");
         }
     }
 
     private void RespawnPlayer()
     {
-        // Utilise la position du checkpoint pour le respawn
-        transform.position = checkpointPosition; //Si plusieurs checkpoint, dernier à être sauvegarder
+        transform.position = checkpointPosition;
         rb.linearVelocity = Vector2.zero;
     }
+
 
     public void CollectFruit()
     {
